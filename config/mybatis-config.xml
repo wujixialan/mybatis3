@@ -110,8 +110,6 @@
 		<!-- <mapper class="com.atguigu.mybatis.dao.EmployeeMapperAnnotation"/> -->
 
 		<!-- 批量注册： -->
-        <mapper resource="EmployeeMapper.xml"/>
-        <mapper resource="EmployeeMapperPlus.xml"/>
-        <mapper resource="DepartmentMapper.xml"/>
+        <mapper resource="EmployeeMapperDynamicSql.xml"/>
     </mappers>
 </configuration>
