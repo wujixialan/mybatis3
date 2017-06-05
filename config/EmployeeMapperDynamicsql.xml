@@ -14,6 +14,26 @@
         查询员工，要求，携带了哪个字段查询条件就带上这个字段的值
     -->
     <select id="getEmpsByConditionIf" resultType="com.zxg.mybatis.Employee">
-        
+        select * from mybatis1.tb1_employee
+        where
+        <!--
+            test: 判断表达式（OGNL）
+            OGNL参照PPT或者官方文档。
+            从参数中取值进行判断
+		 	遇见特殊符号应该去写转义字符：
+		 	&&：
+        -->
+        <if test="id != null">
+            id = #{id}
+        </if>
+        <if test="lastName != null and lastName != ''">
+            and last_name like #{lastName}
+        </if>
+        <if test="gender != null">
+            and gender = #{gender}
+        </if>
+        <if test="email != null">
+            and email = #{email}
+        </if>
     </select>
 </mapper>
