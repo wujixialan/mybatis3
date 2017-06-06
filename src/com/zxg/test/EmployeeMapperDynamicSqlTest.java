@@ -11,6 +11,7 @@ import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -43,6 +44,74 @@ public class EmployeeMapperDynamicSqlTest {
             employee.setGender("3");
             List<Employee> list = mapperDynamicSql.getEmpsByConditionIf(employee);
             System.out.println("list = " + list);
+        } finally {
+            sqlSession.close();
+        }
+    }
+
+    @Test
+    public void testGetEmpsByConditionTrim() {
+        SqlSession sqlSession = null;
+        try {
+            sqlSession = this.sqlSessionFactory.openSession(true);
+            EmployeeMapperDynamicSql mapperDynamicSql = sqlSession.getMapper(EmployeeMapperDynamicSql.class);
+            Employee employee = new Employee();
+            employee.setId(1);
+            List<Employee> list = mapperDynamicSql.getEmpsByConditionTrim(employee);
+            System.out.println("list = " + list);
+        } finally {
+            sqlSession.close();
+        }
+    }
+
+    @Test
+    public void testGetEmpsByConditionChoose() {
+        SqlSession sqlSession = null;
+
+        try {
+            sqlSession = this.sqlSessionFactory.openSession(true);
+            EmployeeMapperDynamicSql mapperDynamicSql = sqlSession.getMapper(EmployeeMapperDynamicSql.class);
+            Employee employee = new Employee();
+            employee.setId(1);
+            employee.setLastName("xia");
+            List<Employee> list = mapperDynamicSql.getEmpsByConditionChoose(employee);
+            System.out.println("list = " + list);
+        } finally {
+            sqlSession.close();
+        }
+    }
+
+    @Test
+    public void testUpdateEmpsByConditionTrim() {
+        SqlSession sqlSession = null;
+
+        try {
+            sqlSession = this.sqlSessionFactory.openSession(true);
+            EmployeeMapperDynamicSql mapperDynamicSql = sqlSession.getMapper(EmployeeMapperDynamicSql.class);
+            Employee emp = new Employee();
+            emp.setId(1);
+            emp.setLastName("33333");
+            emp.setEmail("3333333@gmail.com");
+            emp.setGender("1");
+            mapperDynamicSql.UpdateEmpsByConditionTrim(emp);
+        } finally {
+            sqlSession.close();
+        }
+    }
+
+    @Test
+    public void testGetEmpsByConditionForeach() {
+        SqlSession sqlSession = null;
+
+        try {
+            sqlSession = this.sqlSessionFactory.openSession(true);
+            EmployeeMapperDynamicSql mapperDynamicSql = sqlSession.getMapper(EmployeeMapperDynamicSql.class);
+            List<Integer> list = new ArrayList<>();
+            list.add(1);
+            list.add(2);
+            list.add(3);
+            List<Employee> employees = mapperDynamicSql.getEmpsByConditionForeach(list);
+            System.out.println("employees = " + employees);
         } finally {
             sqlSession.close();
         }
