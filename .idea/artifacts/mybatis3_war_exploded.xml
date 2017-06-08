@@ -7,6 +7,10 @@
         <element id="directory" name="classes">
           <element id="module-output" name="mybatis3" />
         </element>
+        <element id="directory" name="lib">
+          <element id="library" level="project" name="log4j" />
+          <element id="library" level="module" name="JUnit5" module-name="mybatis3" />
+        </element>
       </element>
     </root>
   </artifact>

@@ -1,6 +1,7 @@
 package com.zxg.test;
 
 import com.zxg.dao.EmployeeMapperDynamicSql;
+import com.zxg.mybatis.Department;
 import com.zxg.mybatis.Employee;
 import org.apache.ibatis.io.Resources;
 import org.apache.ibatis.session.SqlSession;
@@ -112,6 +113,40 @@ public class EmployeeMapperDynamicSqlTest {
             list.add(3);
             List<Employee> employees = mapperDynamicSql.getEmpsByConditionForeach(list);
             System.out.println("employees = " + employees);
+        } finally {
+            sqlSession.close();
+        }
+    }
+
+    @Test
+    public void testAddEmpsByConditionForeach() {
+        SqlSession sqlSession = null;
+
+        try {
+            sqlSession = this.sqlSessionFactory.openSession(true);
+            EmployeeMapperDynamicSql mapperDynamicSql = sqlSession.getMapper(EmployeeMapperDynamicSql.class);
+            List<Employee> list = new ArrayList<>();
+            list.add(new Employee(null, "xxxx", "dddd@qq.com", "1", new Department(1)));
+            list.add(new Employee(null, "wwwww", "wwww@qq.com", "0", new Department(2)));
+            list.add(new Employee(null, "aaaaa", "aaaa@qq.com", "0", new Department(1)));
+
+            mapperDynamicSql.addEmps(list);
+        } finally {
+            sqlSession.close();
+        }
+    }
+
+    @Test
+    public void testGetEmpInnerParamters() {
+        SqlSession sqlSession = null;
+
+        try {
+            sqlSession = this.sqlSessionFactory.openSession(true);
+            EmployeeMapperDynamicSql mapperDynamicSql = sqlSession.getMapper(EmployeeMapperDynamicSql.class);
+            Employee e = new Employee();
+            e.setLastName("xia");
+            List<Employee> employees = mapperDynamicSql.getEmpInnerParameters(e);
+            System.out.println("employees = " + employees.size());
         } finally {
             sqlSession.close();
         }

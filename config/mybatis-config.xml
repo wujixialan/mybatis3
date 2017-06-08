@@ -55,8 +55,8 @@
 					自定义数据源：实现DataSourceFactory接口，type是全类名
     -->
     
-    <environments default="department">
-        <environment id="department">
+    <environments default="env_mysql">
+        <environment id="mysql">
             <transactionManager type="JDBC"/>
             <dataSource type="POOLED">
                 <property name="driver" value="${jdbc.driverClass}"/>
@@ -66,7 +66,7 @@
             </dataSource>
         </environment>
 
-        <environment id="sqlserver">
+        <environment id="env_sqlserver">
             <transactionManager type="JDBC"/>
             <dataSource type="POOLED">
                 <property name="driver" value="${jdbc.driverClass}"/>

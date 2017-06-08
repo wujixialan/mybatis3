@@ -147,7 +147,48 @@
                 #{item_id}
             </foreach>
         </where>
+    </select>
 
+    <!--
+        foreach: 可以用于批量操作，批量删除，批量更新等
+    -->
+    <insert id="addEmps">
+        insert into mybatis1.tb1_employee(
+        <!--
+            include 用来引用部分片段
+        -->
+        <include refid="insertPart"></include>
+        ) values
+
+        <foreach collection="emps" item="emp" separator=",">
+            (#{emp.lastName}, #{emp.gender}, #{emp.email}, #{emp.dept.id})
+        </foreach>
+    </insert>
+
+    <!--
+        mybatis 的两个内置参数，不只是方法传进来的参数可以用来判断，取值
+        _parameter: 代表整个参数
+            单个参数：_parameter 就是这个参数
+            多个参数：参数会被封装成为 map，_parameter 代表 map
+        _databaseId: 如果配置 databaseIdProvider 标签
+            _databaseId 代表当前数据的别名 oracle
+    -->
+    <!-- todo 有问题 -->
+    <select id="getEmpInnerParameters" resultType="com.zxg.mybatis.Employee">
+        <!--
+            bind: 可以将 OGNL 表达式的值绑定到一个变量中，方便引用
+        -->
+        <bind name="_lastName" value="'%' + lastName + '%'"></bind>
+        <!--<if test="_databaseId == 'sqlserver'">-->
+        select * from mybatis1.tb1_employee where last_name like #{_lastName}
+        <!--</if>-->
 
     </select>
+
+    <!--
+        抽取可重用的 sql 片段
+    -->
+    <sql id="insertPart">
+        last_name, gender, email, dept_id
+    </sql>
 </mapper>

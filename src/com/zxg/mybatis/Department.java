@@ -42,4 +42,16 @@ public class Department {
                 ", employees=" + employees +
                 '}';
     }
+
+    public Department() {
+    }
+
+    public Department(Integer id, String deptName) {
+        this.id = id;
+        this.deptName = deptName;
+    }
+
+    public Department(Integer id) {
+        this.id = id;
+    }
 }
